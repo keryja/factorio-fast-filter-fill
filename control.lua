@@ -160,7 +160,8 @@ end
 
 -- Filtering: Copies the filter settings of each cell to the cell(s) below it
 function filter_fillDown(player)
-    local size = #player.opened.get_output_inventory()
+    local op = player.opened.get_output_inventory()
+    local size = #op
 
     local rows = math.ceil(size / INVENTORY_COLUMNS)
     for c = 1, INVENTORY_COLUMNS do
