@@ -94,7 +94,7 @@ end
 -- Returns either the item at a position, or the filter
 -- at the position if there isn't an item there
 function getItemOrFilterAtPosition(player, n)
-    local filter = player.opened.get_filter(n)
+    local filter = player.opened.get_output_inventory().get_filter(n)
     if filter ~= nil then
         return filter
     else
