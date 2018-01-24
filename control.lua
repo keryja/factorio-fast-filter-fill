@@ -246,16 +246,22 @@ function requests_blueprint(player)
         return
     end
 
-    if #bp > player.opened.request_slot_count then
-        -- BP has too many items to fit in the request set!
-        player.print('Blueprint has more required items than would fit in the logistic request slots of this chest')
-        return
-    end
-
     -- Make a mapping from item name -> quantity needed
     local lookup = {}
     for k, v in ipairs(bp) do
         lookup[v.name] = (lookup[v.name] or 0) + 1
+    end
+
+    -- count unique item names against available request slots and quit if too many
+    local entity_count = 0
+    for k, v in pairs(lookup) do
+        entity_count = entity_count + 1
+
+        if entity_count > player.opened.request_slot_count then
+            -- BP has too many items to fit in the request set!
+            player.print('Blueprint has more required items than would fit in the logistic request slots of this chest')
+            return
+        end
     end
 
     -- Set the requests in the chest
