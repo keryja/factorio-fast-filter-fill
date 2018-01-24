@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.5
+
+* Update info.json for 0.16
+
 ## 0.6.4
 
 * Updated for Factorio 0.15
