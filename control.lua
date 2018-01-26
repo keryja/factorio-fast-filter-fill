@@ -72,16 +72,8 @@ end
 -- See if an applicable container is opened and show/hide the UI accordingly.
 -- Some delay is imperceptible here, so only check this once every few ticks
 -- to avoid performance impact
-
--- Initialize this to a nonzero number so every mod in the universe doesn't
--- do its expensive work on the same tick
-local tickCounter = 6;
 function checkOpened()
-    tickCounter = tickCounter + 1
-    -- 1/5 second delay doesn't seem to be noticeable
-    if tickCounter == 12 then
-        tickCounter = 0
-    else
+    if game.tick % 12 ~= 0 then
         return
     end
 

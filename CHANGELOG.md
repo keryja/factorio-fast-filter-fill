@@ -2,6 +2,8 @@
 
 ## 0.6.6
 
+* Fix checking request slot space for blueprint fill [#3]
+* Fix Unknown item name: curved-rail [#4]
 * Fix 'get_output_inventory' (a nil value) [#5]
 
 ## 0.6.5
