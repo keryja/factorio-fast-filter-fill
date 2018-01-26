@@ -10,6 +10,14 @@ local requestUiElementName = "RequestRow"
 local Buttons = {}
 local dispatch = {}
 
+function table_length(tbl)
+   local cnt = 0
+   for _, _ in pairs(tbl) do
+       cnt = cnt + 1
+   end
+   return cnt
+end
+
 -- Initializes the world
 function startup()
     script.on_event(defines.events.on_tick, checkOpened)
@@ -226,12 +234,10 @@ end
 
 function requests_blueprint(player)
     -- Get some blueprint details
-    -- Note: 1 entry per item
-    -- game.local_player.opened.get_output_inventory()[1].get_blueprint_entities()[5].name
     local blueprint = nil;
-    if player.cursor_stack.valid_for_read and player.cursor_stack.name == "blueprint" then
+    if player.cursor_stack.is_blueprint then
         blueprint = player.cursor_stack;
-    elseif player.opened.get_output_inventory()[1].valid_for_read and player.opened.get_output_inventory()[1].name == "blueprint" then
+    elseif player.opened.get_output_inventory()[1].is_blueprint then
         blueprint = player.opened.get_output_inventory()[1];
     else
         player.print('You must be holding a blueprint or have a blueprint in the first chest slot to use this button')
@@ -243,28 +249,19 @@ function requests_blueprint(player)
         player.opened.clear_request_slot(i)
     end
 
-    local bp = blueprint.get_blueprint_entities()
-
-    if bp == nil then
+    if not blueprint.is_blueprint_setup() then
         player.print('Blueprint has no pattern. Please use blueprint with pattern.')
         return
     end
-
-    if #bp > player.opened.request_slot_count then
-        -- BP has too many items to fit in the request set!
-        player.print('Blueprint has more required items than would fit in the logistic request slots of this chest')
+    
+    if table_length(blueprint.cost_to_build) > player.opened.request_slot_count then
+        player.print('Blueprint has more entities than would fit in the request slots of this chest')
         return
     end
-
-    -- Make a mapping from item name -> quantity needed
-    local lookup = {}
-    for k, v in ipairs(bp) do
-        lookup[v.name] = (lookup[v.name] or 0) + 1
-    end
-
+    
     -- Set the requests in the chest
     local i = 1
-    for k, v in pairs(lookup) do
+    for k, v in pairs(blueprint.cost_to_build) do
         player.opened.set_request_slot({name = k, count = v}, i)
         i = i + 1
     end
