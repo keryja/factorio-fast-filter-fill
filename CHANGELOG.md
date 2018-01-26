@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.6
+
+* Fix 'get_output_inventory' (a nil value) [#5]
+
 ## 0.6.5
 
 * Update info.json for 0.16

@@ -50,11 +50,15 @@ function initButtons()
 end
 
 function canFilter(obj)
+    if obj.get_output_inventory == nil then
+        return false
+    end
+
     return obj.get_output_inventory() ~= nil and obj.get_output_inventory().supports_filters()
 end
 
 function canRequest(obj)
-    return obj.request_slot_count > 0
+    return obj.request_slot_count ~= nil and obj.request_slot_count > 0
 end
 
 -- See if an applicable container is opened and show/hide the UI accordingly.
