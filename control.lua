@@ -26,7 +26,8 @@ end
 
 -- Initializes the world
 function startup()
-    script.on_event(defines.events.on_tick, checkOpened)
+    script.on_event(defines.events.on_gui_opened, checkOpened)
+    script.on_event(defines.events.on_gui_closed, checkOpened)
     initButtons()
 end
 
@@ -78,15 +79,11 @@ end
 -- See if an applicable container is opened and show/hide the UI accordingly.
 -- Some delay is imperceptible here, so only check this once every few ticks
 -- to avoid performance impact
-function checkOpened()
-    if game.tick % 12 ~= 0 then
-        return
-    end
+function checkOpened(evt)
+    local player = game.players[evt.player_index]
 
-    for _, player in pairs(game.players) do
-        showOrHideFilterUI(player, player.opened ~= nil and canFilter(player.opened))
-        showOrHideRequestUI(player, player.opened ~= nil and canRequest(player.opened))
-    end
+    showOrHideFilterUI(player, player.opened ~= nil and canFilter(player.opened))
+    showOrHideRequestUI(player, player.opened ~= nil and canRequest(player.opened))
 end
 
 -- Gets the name of the item at the given position, or nil if there
@@ -251,12 +248,12 @@ function requests_blueprint(player)
         player.print('Blueprint has no pattern. Please use blueprint with pattern.')
         return
     end
-    
+
     if table_length(blueprint.cost_to_build) > player.opened.request_slot_count then
         player.print('Blueprint has more entities than would fit in the request slots of this chest')
         return
     end
-    
+
     -- Set the requests in the chest
     local i = 1
     for k, v in pairs(blueprint.cost_to_build) do
