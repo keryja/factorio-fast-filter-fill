@@ -10,6 +10,12 @@ local requestUiElementName = "RequestRow"
 local Buttons = {}
 local dispatch = {}
 
+function debug_print(msg)
+    for _, player in pairs(game.players) do
+        player.print("[fast-filter-fill] " .. serpent.block(msg))
+    end
+end
+
 function table_length(tbl)
    local cnt = 0
    for _, _ in pairs(tbl) do
