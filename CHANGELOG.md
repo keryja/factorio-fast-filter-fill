@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.7
+
+* Fix error when a LuaEquipmentGrid is opened [#6]
+
 ## 0.6.6
 
 * Optimise logic for opening/closing GUI

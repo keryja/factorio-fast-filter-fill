@@ -1,11 +1,11 @@
 {
   "name": "fast-filter-fill",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "title": "Fast Filter Fill",
   "author": "Keryja, SeaRyanC",
   "contact": "http://github.com/keryja/",
   "homepage": "https://mods.factorio.com/keryja/fast-filter-fill",
   "description": "Quickly duplicate filter settings in Cargo Wagons and other filterable containers",
   "factorio_version": "0.16",
-  "dependencies": ["base >= 0.14.0"]
+  "dependencies": ["base >= 0.16.0"]
 }

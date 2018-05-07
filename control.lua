@@ -64,12 +64,13 @@ function initButtons()
     script.on_event(defines.events.on_gui_click, handleButton)
 end
 
-function canFilter(obj)
-    if obj.get_output_inventory == nil then
-        return false
-    end
+function canFilter(player)
+	if player.opened_gui_type ~= defines.gui_type.entity then
+		return false
+	end
 
-    return obj.get_output_inventory() ~= nil and obj.get_output_inventory().supports_filters()
+	inv = player.opened.get_output_inventory()
+    return inv ~= nil and inv.supports_filters()
 end
 
 function canRequest(obj)
@@ -82,8 +83,8 @@ end
 function checkOpened(evt)
     local player = game.players[evt.player_index]
 
-    showOrHideFilterUI(player, player.opened ~= nil and canFilter(player.opened))
-    showOrHideRequestUI(player, player.opened ~= nil and canRequest(player.opened))
+    showOrHideFilterUI(player, canFilter(player))
+    showOrHideRequestUI(player, canFilter(player))
 end
 
 -- Gets the name of the item at the given position, or nil if there
