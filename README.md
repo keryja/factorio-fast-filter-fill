@@ -1,6 +1,8 @@
 # Fast Filter Fill
 
-A Factorio mod for managing container filters, logistic requests, and maybe other stuff later. Supports all 0.12.x versions of Factorio
+**[Picker Extended](https://mods.factorio.com/mod/PickerExtended) also has the fast filter fill functionality, and much more, I'd recommend checking that out instead.**
+
+A Factorio mod for managing container filters, logistic requests, and maybe other stuff later. Supports all 0.16.x versions of Factorio
 
 
 ## [Download Fast Filter Fill](https://mods.factorio.com/mods/Keryja/fast-filter-fill)
